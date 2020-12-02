@@ -27,4 +27,14 @@ userSchema.pre('save', function (next) {
     }
 });
 
+// Função para verificar se senha digitada bate com a presente no BD:
+userSchema.methods.isCorrectPassword = function (password, callback) {
+    bcrypt.compare(password, this.password, function (err, same) {
+        if (err)
+            callback(err);
+        else
+            callback(err, same);
+    })
+}
+
 module.exports = mongoose.model('User', userSchema);
