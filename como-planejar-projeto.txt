@@ -1,0 +1,100 @@
+Como planejar:
+
+1) Definir bem o que é o projeto e qual problema ele resolve
+2) Definir se o projeto é viável
+3) Definir bem qual a versão minima dele
+4) Definir bem como ele será entregue aos usuários (plataformas)
+5) Definir as tecnologias que serão usadas
+6) Desenhar as telas caso existam
+7) Projetar a estrutura de dados
+8) Documentar os endpoints caso existam
+9) Definir as etapas do projeto (por onde vamos começar e por onde vamos finalizar)
+
+1) Projeto: Clone do Evernote, que é um app/site que permite criação, edição e remoção de notas
+presentes na nuvem
+2) Projeto é viável: sim
+3) Versão mínima:
+    - Tela de apresentação (propaganda) onde o usuário pode fazer o login ou se cadastrar
+    - Tela de login e cadastro
+    - Tela principal, onde o usuário pode criar, editar e remover suas notas
+    - Tela de configurações, onde o usuário pode alterar seus dados
+4) O site é uma plataforma simples, que será entregue através da tela de apresentação/propaganda
+5) Tecnologias que serão usadas: HTML, CSS, JS, ReactJS, NodeJS e MongoDB
+6) Desenho no Figma
+7) O que podemos prever sobre o banco do projeto:
+=> Collections: notes, users
+- Note:
+{
+    "title": String,
+    "body": String,
+    "created_at": Date,
+    "updated_at": Date
+}
+- User:
+{
+    "name": String,
+    "email": String,
+    "password": String,
+    "created_at": Date,
+    "updated_at": Date
+}
+=> Relações:
+- Uma nota sempre terá um author("user")
+
+==> Essas collections e relação são criadas na pasta models
+
+8) Endpoints - são as URLs que chamamos na API para pegar e criar recursos no mongo
+9) Etapas:
+    1- Criação de mockups
+    2- Projetar as estruturas de dados
+    3- Projetar os endpoints
+    4- Construir a API
+    5- Criar o lado do cliente com ReactJS
+    6- Deploy: Preparar Heroku e MongoDB e fazer deploy da API e do cliente
+
+
+Iniciar Projeto:
+
+1) Instale o express-generator rodando: npm install express-generator -g
+2) Gere o projeto: express --view=no-view nome_do_projeto
+3) Em Routes index atualize o render para: res.json({ message: 'Hello world' }); (se não atualizar pode dar erro na página)
+4) Instale as bibliotecas: npm install
+5) Suba o projeto: npm start
+6) Remover as linhas:
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+var indexRouter = require('./app/routes/index');
+app.use('/', indexRouter);
+7) No arquivo app.js, atualize para: var usersRouter = require('./app/routes/users');
+8) Remova o arquivo app/routes/index.js. Crie a pasta app e mova a pasta rotas para a pasta app
+9) Instale o nodemon: npm i nodemon --save (como não estamos instalando globalmente, pra subir terei que usar o npx nodemon)
+10) Instale o mongoose: npm i mongoose --save
+11) Dê o play no container mongodb no docker antes de subir
+12) Subindo com o nodemon: npx nodemon
+
+
+O que é Autorização?
+- Mecanismo para garantir que um usuário não tenha acesso a um recurso que ele não deveria 
+ter acesso
+
+O que é Autenticação?
+- Mecanismo para saber quem é o usuário que está solicitando um determinado recurso. Podemos 
+fazer essa autenticação usando o JWT
+
+O que é JWT (JSON Web Token)?
+- Uma das possíveis formas de implementar autenticação através de tokens
+- É um padrão de autenticação
+- É formado por três partes:
+    - Header: Tipo de token (jwt) e algoritmo de criptografia (rsas)
+    - Payload: Possui informações como o id ou email do usuário, data de expiração e etc
+    - Signature: É a concentração dos hashes gerados a partir do Header e Payload usando 
+    base64UrlEncode e é usado para garantir a integridade do token
+
+- Fluxo do JWT:
+    - O usuário envia suas credenciais para login
+    - O servidor gera o token
+    - O usuário armazena esse token
+    - O usuário usa o token (enviado via header) quando precisa acessar uma rota que 
+    requer autenticação
+    - O servidor usa o token para determinar quem é o usuário e para que ele possa decidir 
+    se o usuário deve ter acesso ao recurso solicitado
