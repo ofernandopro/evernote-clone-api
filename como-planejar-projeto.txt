@@ -98,3 +98,16 @@ O que é JWT (JSON Web Token)?
     requer autenticação
     - O servidor usa o token para determinar quem é o usuário e para que ele possa decidir 
     se o usuário deve ter acesso ao recurso solicitado
+
+O que é CORS (Cross Origin Resource Sharing)?
+- Permite que nossa API seja acessada por outros sites através do browser
+- No browser existe uma limitação de que um API só pode chamar recursos que estão naquele mesmo 
+site
+- Como o CORS isso passa a ser possível desde que o outro site deixe uma resposta no header
+dizendo que ele permite receber esse tipo de chamada
+- Temos que abilitar isso no nosso site. Podemos setar para qual site vamos habilitar isso
+- Instale o CORS:
+npm i cors --save
+- Adicionar no arquivo file:
+var cors = require('cors');
+app.use(cors());
